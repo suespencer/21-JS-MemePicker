@@ -5,8 +5,22 @@ const getImageBtn = document.getElementById("get-image-btn");
 const gifsOnlyOption = document.getElementById("gifs-only-option");
 const memeModalInner = document.getElementById("meme-modal-inner");
 const memeModal = document.getElementById("meme-modal");
+const memeModalCloseBtn = document.getElementById("meme-modal-close-btn")
 
+
+emotionRadios.addEventListener("change", highlightCheckedOption);
 getImageBtn.addEventListener("click", renderCat);
+
+
+function highlightCheckedOption(e) {
+  const radios = document.getElementsByClassName("radio");
+  for (let radio of radios) {
+    radio.classList.remove("highlight");
+  }
+
+  // console.log(document.getElementById(e.target.id));
+  document.getElementById(e.target.id).parentElement.classList.add("highlight");
+}
 
 function getMatchingCatsArray() {
   if (document.querySelector('input[type="radio"]:checked')) {
@@ -38,6 +52,7 @@ function getSingleCatObject() {
   }
 }
 
+
 function renderCat() {
   const catObject = getSingleCatObject();
   memeModalInner.innerHTML = `<img 
@@ -49,17 +64,8 @@ function renderCat() {
   memeModal.style.display = "flex";
 }
 
-emotionRadios.addEventListener("change", highlightCheckedOption);
 
-function highlightCheckedOption(e) {
-  const radios = document.getElementsByClassName("radio");
-  for (let radio of radios) {
-    radio.classList.remove("highlight");
-  }
 
-  console.log(document.getElementById(e.target.id));
-  document.getElementById(e.target.id).parentElement.classList.add("highlight");
-}
 
 function getEmotionsArray(cats) {
   const emotionsArray = [];
@@ -97,3 +103,7 @@ function renderEmotionsRadios(cats) {
 }
 
 renderEmotionsRadios(catsData);
+
+memeModalCloseBtn.addEventListener('click', function(){
+  memeModal.style.display = "none"
+})
